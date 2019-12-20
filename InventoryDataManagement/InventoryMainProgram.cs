@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace ObjectOrientedProgram.InventoryManagement
+namespace ObjectOrientedProgram.InventoryDataManagement
 {
     class InventoryMainProgram
     {
@@ -55,6 +55,9 @@ namespace ObjectOrientedProgram.InventoryManagement
                 Console.WriteLine("The Value of Wheat Inventory is: Rs.{0}", totalWheatValue);
 
                 InventoryTotalPrice inventoryTotalPrice = new InventoryTotalPrice();
+
+                List<Prices> prices = new List<Prices>();
+
                 Prices ricePrice = new Prices
                 {
                     Name = "Rice",
@@ -73,11 +76,13 @@ namespace ObjectOrientedProgram.InventoryManagement
                     Price = totalWheatValue.ToString()
                 };
 
-                inventoryTotalPrice.Prices.Add(ricePrice);
-                inventoryTotalPrice.Prices.Add(pulsesPrice);
-                inventoryTotalPrice.Prices.Add(wheatPrice);
+                prices.Add(ricePrice);
+                prices.Add(pulsesPrice);
+                prices.Add(wheatPrice);
 
-                string inventoryPriceData = JsonConvert.SerializeObject(inventoryTotalPrice.Prices);
+                inventoryTotalPrice.Prices = prices;
+
+                string inventoryPriceData = JsonConvert.SerializeObject(inventoryTotalPrice);
 
                 Console.WriteLine("Writing into the file");
 

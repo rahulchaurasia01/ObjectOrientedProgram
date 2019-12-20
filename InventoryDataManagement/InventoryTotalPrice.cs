@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ObjectOrientedProgram
+namespace ObjectOrientedProgram.InventoryDataManagement
 {
     class InventoryTotalPrice
     {
         
-        public List<Prices> Prices { get; set; } = new List<Prices>();
+        public List<Prices> Prices { get; set; }
 
     }
 }

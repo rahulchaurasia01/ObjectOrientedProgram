@@ -15,7 +15,11 @@ namespace ObjectOrientedProgram
 {
     class Utility
     {
-
+        /// <summary>
+        /// If the Conversion from string to int is not possible
+        /// then it prints the error message.
+        /// </summary>
+        /// <param name="flag"></param>
         public static void ErrorMessage(bool flag)
         {
             if (!flag)

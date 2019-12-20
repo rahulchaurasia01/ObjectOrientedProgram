@@ -8,9 +8,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace ObjectOrientedProgram
+namespace ObjectOrientedProgram.InventoryDataManagement
 {
     class Inventory
     {
