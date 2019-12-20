@@ -1,0 +1,53 @@
+{
+  "Rice": [
+    {
+      "Name": "Basmati Rice",
+      "Weight": "2",
+      "Price": "78"
+    },
+    {
+      "Name": "Jasmine Rice",
+      "Weight": "2",
+      "Price": "65"
+    },
+    {
+      "Name": "White Rice",
+      "Weight": "1",
+      "Price": "60"
+    }
+  ],
+  "Pulses": [
+    {
+      "Name": "yellow pigeon peas",
+      "Weight": "2",
+      "Price": "40"
+    },
+    {
+      "Name": "Brown Chickpeas",
+      "Weight": "2",
+      "Price": "38"
+    },
+    {
+      "Name": "Whole Mung Beans",
+      "Weight": "3",
+      "Price": "45"
+    }
+  ],
+  "Wheats": [
+    {
+      "Name": "Emmer",
+      "Weight": "2",
+      "Price": "58"
+    },
+    {
+      "Name": "Durum",
+      "Weight": "3",
+      "Price": "62"
+    },
+    {
+      "Name": "Soft Red Winter",
+      "Weight": "2",
+      "Price": "50"
+    }
+  ]
+}
