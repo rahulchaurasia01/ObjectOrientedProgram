@@ -81,7 +81,7 @@ namespace ObjectOrientedProgram.StockReportsProgram
                 Console.WriteLine("Reports Of Stocks !!!");
                 foreach (StockPortfolio portfolio in stocks)
                     Console.WriteLine("Share Name: {0}, Total Value of your Share is Rs.{1}", portfolio.ShareName, Convert.ToInt32(portfolio.NoOfShare) * Convert.ToInt32(portfolio.SharePrice));
-
+    
                 Stock stock = new Stock
                 {
                     Stocks = stocks
@@ -89,8 +89,9 @@ namespace ObjectOrientedProgram.StockReportsProgram
 
                 string stockJsonData = JsonConvert.SerializeObject(stock);
 
-                using StreamWriter streamWriter = new StreamWriter(outputPath);
-                streamWriter.WriteLine(stockJsonData);
+                using (StreamWriter streamWriter = new StreamWriter(outputPath))
+                    streamWriter.WriteLine(stockJsonData);
+
             }
             catch(Exception e)
             {
