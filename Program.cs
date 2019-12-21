@@ -6,18 +6,16 @@
  *  @since   19-12-2019
  */
 
-using Newtonsoft.Json;
 using ObjectOrientedProgram.InventoryDataManagement;
 using ObjectOrientedProgram.InventoryManagementProgram;
+using ObjectOrientedProgram.StockReportsProgram;
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace ObjectOrientedProgram
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             try
             {
@@ -32,8 +30,9 @@ namespace ObjectOrientedProgram
                         Console.WriteLine("Welcome to BridgeLabz");
                         Console.WriteLine();
                         Console.WriteLine("1. Inventory Data Management Program");
-                        Console.WriteLine("2. Inventory Management Program");
-                        Console.WriteLine("3. Exit");
+                        Console.WriteLine("2. Stock Report Program");
+                        Console.WriteLine("3. Inventory Management Program");
+                        Console.WriteLine("4. Exit");
                         Console.Write("Enter Your Choice: ");
                         flag = int.TryParse(Console.ReadLine(), out choice);
                         Utility.ErrorMessage(flag);
@@ -46,10 +45,14 @@ namespace ObjectOrientedProgram
                             break;
 
                         case 2:
-                            InventoryManagerProgram.InventoryManager();
+                            StockReportProgram.StockReport();
                             break;
 
                         case 3:
+                            InventoryManagerProgram.InventoryManager();
+                            break;
+
+                        case 4:
                             flag = true;
                             break;
 
