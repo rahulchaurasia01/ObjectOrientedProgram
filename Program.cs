@@ -8,6 +8,7 @@
 
 using ObjectOrientedProgram.InventoryDataManagement;
 using ObjectOrientedProgram.InventoryManagementProgram;
+using ObjectOrientedProgram.RegularExpression;
 using ObjectOrientedProgram.StockReportsProgram;
 using System;
 
@@ -30,9 +31,10 @@ namespace ObjectOrientedProgram
                         Console.WriteLine("Welcome to BridgeLabz");
                         Console.WriteLine();
                         Console.WriteLine("1. Inventory Data Management Program");
-                        Console.WriteLine("2. Stock Report Program");
-                        Console.WriteLine("3. Inventory Management Program");
-                        Console.WriteLine("4. Exit");
+                        Console.WriteLine("2. Regular Expression Program");
+                        Console.WriteLine("3. Stock Report Program");
+                        Console.WriteLine("4. Inventory Management Program");
+                        Console.WriteLine("5. Exit");
                         Console.Write("Enter Your Choice: ");
                         flag = int.TryParse(Console.ReadLine(), out choice);
                         Utility.ErrorMessage(flag);
@@ -45,14 +47,18 @@ namespace ObjectOrientedProgram
                             break;
 
                         case 2:
-                            StockReportProgram.StockReport();
+                            RegularExpressionProgram.RegularExpression();
                             break;
 
                         case 3:
-                            InventoryManagerProgram.InventoryManager();
+                            StockReportProgram.StockReport();
                             break;
 
                         case 4:
+                            InventoryManagerProgram.InventoryManager();
+                            break;
+
+                        case 5:
                             flag = true;
                             break;
 
