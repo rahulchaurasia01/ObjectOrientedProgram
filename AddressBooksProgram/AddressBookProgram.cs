@@ -66,26 +66,37 @@ namespace ObjectOrientedProgram.AddressBooksProgram
                         Console.WriteLine();
                         addressBook = Utility.CreateAddressBookData();
                         addressBookList.Add(addressBook);
+                        Utility.SaveAddressBookInJson(addressBookList, addressPath);
                         Console.WriteLine("New Contact has been Successfully Created. !!");
                         break;
 
                     case 2:
                         Console.WriteLine();
                         addressBookList = Utility.EditAddressBookData(addressBookList);
+                        Utility.SaveAddressBookInJson(addressBookList, addressPath);
                         Console.WriteLine("The Contact Has Been Successfully Updated. !!");
                         break;
 
                     case 3:
                         Console.WriteLine();
                         addressBookList = Utility.DeleteAddressBookData(addressBookList);
+                        Utility.SaveAddressBookInJson(addressBookList, addressPath);
                         break;
 
                     case 4:
-                        Console.WriteLine("This Program Still not Implemented.");
+                        Console.WriteLine();
+                        Utility.SortByNameAddressBookData(addressBookList);
+                        Console.Write("Do you want to Save the File in Name Order [y/n]: ");
+                        if(Console.ReadLine().ToLower()[0] == 'y')
+                            Utility.SaveAddressBookInJson(addressBookList, addressPath);
                         break;
 
                     case 5:
-                        Console.WriteLine("This Program Still not Implemented.");
+                        Console.WriteLine();
+                        Utility.SortByZipAddressBookData(addressBookList);
+                        Console.Write("Do you want to Save the File in Zip Order [y/n]: ");
+                        if (Console.ReadLine().ToLower()[0] == 'y')
+                            Utility.SaveAddressBookInJson(addressBookList, addressPath);
                         break;
 
                     case 6:
@@ -98,18 +109,7 @@ namespace ObjectOrientedProgram.AddressBooksProgram
                 }
             } while (!flag);
 
-            AddressBookList addressBookList1 = new AddressBookList
-            {
-                AddressBook = addressBookList
-            };
-
-            string printAddressBook = JsonConvert.SerializeObject(addressBookList1);
-
-            using (StreamWriter streamWriter = new StreamWriter(addressPath))
-                streamWriter.WriteLine(printAddressBook);
-
             
-
         }
     }
 }

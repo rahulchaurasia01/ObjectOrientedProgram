@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace ObjectOrientedProgram.AddressBooksProgram
@@ -274,7 +276,11 @@ namespace ObjectOrientedProgram.AddressBooksProgram
             return addressBooks;
         }
 
-
+        /// <summary>
+        /// It delete the specific address book data.
+        /// </summary>
+        /// <param name="addressBooks"></param>
+        /// <returns></returns>
         public static List<AddressBook> DeleteAddressBookData(List<AddressBook> addressBooks)
         {
             if(addressBooks.Count == 0)
@@ -311,6 +317,48 @@ namespace ObjectOrientedProgram.AddressBooksProgram
             }
             else
                 return addressBooks;
+        }
+
+        /// <summary>
+        /// It Sort the Address Book by its Name
+        /// </summary>
+        /// <param name="addressBooks"></param>
+        public static void SortByNameAddressBookData(List<AddressBook> addressBooks)
+        {
+            List<AddressBook> tempAddress = addressBooks;
+            tempAddress.Sort((addressName1, addressName2) => addressName1.Name.CompareTo(addressName2.Name));
+            DisplayAddressBookData(tempAddress);
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// It Sort the Address Book by its Zip Code
+        /// </summary>
+        /// <param name="addressBooks"></param>
+        public static void SortByZipAddressBookData(List<AddressBook> addressBooks)
+        {
+            List<AddressBook> tempAddress = addressBooks;
+            tempAddress.Sort((addressName1, addressName2) => addressName1.Zip.CompareTo(addressName2.Zip));
+            DisplayAddressBookData(tempAddress);
+            Console.WriteLine();
+        }
+
+        /// <summary>
+        /// It Save the Data in jSon file.
+        /// </summary>
+        /// <param name="addressBooks"></param>
+        /// <param name="addressPath"></param>
+        public static void SaveAddressBookInJson(List<AddressBook> addressBooks, string addressPath)
+        {
+            AddressBookList addressBookList1 = new AddressBookList
+            {
+                AddressBook = addressBooks
+            };
+
+            string printAddressBook = JsonConvert.SerializeObject(addressBookList1);
+
+            using (StreamWriter streamWriter = new StreamWriter(addressPath))
+                streamWriter.WriteLine(printAddressBook);
         }
 
 
