@@ -35,16 +35,39 @@ namespace ObjectOrientedProgram.RegularExpression
 
                 Console.WriteLine("Done Reading from File");
 
-                string name, fullname;
+                string name, fullname, pattern;
                 long mobileNumber;
                 bool flag;
 
-                Console.WriteLine();
-                Console.Write("Enter Your Name: ");
-                name = Console.ReadLine();
+                pattern = @"^[a-zA-Z]*$";
 
-                Console.Write("Enter Your Full Name: ");
-                fullname = Console.ReadLine();
+                Console.WriteLine();
+
+                do
+                {
+                    Console.Write("Enter Your Name: ");
+                    name = Console.ReadLine();
+                    flag = Regex.IsMatch(name, pattern);
+                    if (!flag)
+                    {
+                        Console.WriteLine("Please Enter only Alphabet.");
+                        Console.WriteLine();
+                    }
+                } while (!flag);
+
+                pattern = @"^[a-zA-Z\s]*$";
+
+                do
+                {
+                    Console.Write("Enter Your Full Name: ");
+                    fullname = Console.ReadLine();
+                    flag = Regex.IsMatch(fullname, pattern);
+                    if (!flag)
+                    {
+                        Console.WriteLine("Please Enter only Alphabet.");
+                        Console.WriteLine();
+                    }
+                } while (!flag);
 
                 do
                 {
@@ -64,7 +87,7 @@ namespace ObjectOrientedProgram.RegularExpression
                     }
                 } while (!flag);
 
-                string pattern = @"\<+\b[a-z]+\>+";
+                pattern = @"\<+\b[a-z]+\>+";
                 inputData = Regex.Replace(inputData, pattern, name);
 
                 pattern = @"\<+[a-z]+\s?[a-z]+\>+";
