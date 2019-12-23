@@ -26,7 +26,7 @@ namespace ObjectOrientedProgram.AddressBooksProgram
         /// <returns></returns>
         public static bool AddressValidation(string address)
         {
-            string pattern = @"^[a-zA-Z\s]*$"; ;
+            string pattern = @"^[a-zA-Z0-9\,\-\.\s]*$";
             return Regex.IsMatch(address, pattern);
         }
 
