@@ -7,6 +7,7 @@
  */
 
 using ObjectOrientedProgram.AddressBooksProgram;
+using ObjectOrientedProgram.DeckOfCardProgram;
 using ObjectOrientedProgram.InventoryDataManagement;
 using ObjectOrientedProgram.InventoryManagementProgram;
 using ObjectOrientedProgram.RegularExpression;
@@ -36,7 +37,8 @@ namespace ObjectOrientedProgram
                         Console.WriteLine("3. Stock Report Program");
                         Console.WriteLine("4. Inventory Management Program");
                         Console.WriteLine("5. Address Book Program");
-                        Console.WriteLine("6. Exit");
+                        Console.WriteLine("6. Deck Of Cards Program");
+                        Console.WriteLine("7. Exit");
                         Console.Write("Enter Your Choice: ");
                         flag = int.TryParse(Console.ReadLine(), out choice);
                         Utility.ErrorMessage(flag);
@@ -65,6 +67,10 @@ namespace ObjectOrientedProgram
                             break;
 
                         case 6:
+                            DeckOfCardsProgram.DeckOfCards();
+                            break;
+
+                        case 7:
                             flag = true;
                             break;
 
