@@ -1,0 +1,18 @@
+{
+  "AddressBook": [
+    {
+      "Name": "Rahul",
+      "MobileNumber": "1234567891",
+      "Email": "rahul@eternity.com",
+      "Address": "Mumbai India",
+      "Zip": "400071"
+    },
+    {
+      "Name": "Sonu",
+      "MobileNumber": "9004084562",
+      "Email": "sonu360@eternity.com",
+      "Address": "Pune",
+      "Zip": "400089"
+    }
+  ]
+}
