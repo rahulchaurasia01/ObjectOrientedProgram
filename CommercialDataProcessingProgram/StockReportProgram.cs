@@ -92,7 +92,8 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
                 } while (!flag);
 
-                int stockChoice;
+                int stockChoice, amount;
+                string shareName;
                 flag = false;
                 Console.WriteLine();
                 Console.WriteLine("Welcome {0} to the Commercial Data Processing", loginUserName);
@@ -126,8 +127,17 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
                                     break;
                             } while (!inputFlag);
 
-                            
-
+                            Console.WriteLine();
+                            Console.Write("Enter the Name Of Share you want to Buy: ");
+                            shareName = Console.ReadLine();
+                            do
+                            {
+                                Console.Write("Enter the Amount of Share you want to buy: ");
+                                inputFlag = int.TryParse(Console.ReadLine(), out amount);
+                                Utility.ErrorMessage(inputFlag);
+                            } while (!inputFlag);
+                            stockAccount = new StockAccount();
+                            stockAccount.Buy(amount, shareName);
                             break;
 
                         case 3:

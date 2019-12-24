@@ -9,6 +9,8 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
     class StockAccount
     {
 
+        public StockAccount() { }
+
         /// <summary>
         /// This Constructor will create the new user Account.
         /// </summary>
@@ -73,7 +75,7 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
         public void Buy(int amount, string symbol)
         {
-
+            Console.WriteLine("HOla");
         }
 
         public void Sell(int amount, string symbol)
