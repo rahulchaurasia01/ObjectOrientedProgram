@@ -36,9 +36,10 @@ namespace ObjectOrientedProgram
                         Console.WriteLine("2. Regular Expression Program");
                         Console.WriteLine("3. Stock Report Program");
                         Console.WriteLine("4. Inventory Management Program");
-                        Console.WriteLine("5. Address Book Program");
-                        Console.WriteLine("6. Deck Of Cards Program");
-                        Console.WriteLine("7. Exit");
+                        Console.WriteLine("5. Commercial Data Processing Program");
+                        Console.WriteLine("6. Address Book Program");
+                        Console.WriteLine("7. Deck Of Cards Program");
+                        Console.WriteLine("8. Exit");
                         Console.Write("Enter Your Choice: ");
                         flag = int.TryParse(Console.ReadLine(), out choice);
                         Utility.ErrorMessage(flag);
@@ -63,14 +64,18 @@ namespace ObjectOrientedProgram
                             break;
 
                         case 5:
-                            AddressBookProgram.AddressBook();
+                            CommercialDataProcessingProgram.StockReportProgram.StockReport();
                             break;
 
                         case 6:
-                            DeckOfCardsProgram.DeckOfCards();
+                            AddressBookProgram.AddressBook();
                             break;
 
                         case 7:
+                            DeckOfCardsProgram.DeckOfCards();
+                            break;
+
+                        case 8:
                             flag = true;
                             break;
 

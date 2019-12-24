@@ -1,0 +1,24 @@
+{
+  "Stocks": [
+    {
+      "ShareName": "Mrf",
+      "NoOfShare": "70",
+      "SharePrice": "75000"
+    },
+    {
+      "ShareName": "Tcs",
+      "NoOfShare": "540",
+      "SharePrice": "1800"
+    },
+    {
+      "ShareName": "Wipro",
+      "NoOfShare": "150",
+      "SharePrice": "254"
+    },
+    {
+      "ShareName": "Ril",
+      "NoOfShare": "480",
+      "SharePrice": "2400"
+    }
+  ]
+}
