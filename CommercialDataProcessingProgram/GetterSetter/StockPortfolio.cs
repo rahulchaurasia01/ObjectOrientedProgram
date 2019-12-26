@@ -1,4 +1,4 @@
-﻿namespace ObjectOrientedProgram.CommercialDataProcessingProgram
+﻿namespace ObjectOrientedProgram.CommercialDataProcessingProgram.GetterSetter
 {
     class StockPortfolio
     {

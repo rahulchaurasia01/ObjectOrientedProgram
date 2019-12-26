@@ -1,0 +1,52 @@
+{
+  "CustomerPurchaseds": [
+    {
+      "Transaction_Id": "2558c4cd-3394-4d97-9487-b9462e799440",
+      "UserName": "pooja06",
+      "ShareName": "Mrf",
+      "NoOfShare": "1.3333334",
+      "Amount": "100000",
+      "DateAndTime": "12/26/2019 6:43:27 PM"
+    },
+    {
+      "Transaction_Id": "a1bc0d86-1305-4677-8bae-8d72d0e982da",
+      "UserName": "rahul01",
+      "ShareName": "Tcs",
+      "NoOfShare": "2.7777777",
+      "Amount": "5000",
+      "DateAndTime": "12/26/2019 6:48:03 PM"
+    },
+    {
+      "Transaction_Id": "c9d08492-2f02-4ae6-bd6f-bae0d8c7442a",
+      "UserName": "pooja06",
+      "ShareName": "Mrf",
+      "NoOfShare": "1.3333334",
+      "Amount": "100000",
+      "DateAndTime": "12/26/2019 6:52:02 PM"
+    },
+    {
+      "Transaction_Id": "e09db77b-635c-422d-bbc6-ea310ee8cdcd",
+      "UserName": "pooja06",
+      "ShareName": "Wipro",
+      "NoOfShare": "7.874016",
+      "Amount": "2000",
+      "DateAndTime": "12/26/2019 6:52:28 PM"
+    },
+    {
+      "Transaction_Id": "5270cde4-945f-463a-969a-157fa0fe7dce",
+      "UserName": "rahul01",
+      "ShareName": "Mrf",
+      "NoOfShare": "1.3333334",
+      "Amount": "100000",
+      "DateAndTime": "12/26/2019 6:52:54 PM"
+    },
+    {
+      "Transaction_Id": "d9538f23-820e-413d-826e-e279f3183493",
+      "UserName": "rahul01",
+      "ShareName": "Ril",
+      "NoOfShare": "2.0833333",
+      "Amount": "5000",
+      "DateAndTime": "12/26/2019 7:15:14 PM"
+    }
+  ]
+}

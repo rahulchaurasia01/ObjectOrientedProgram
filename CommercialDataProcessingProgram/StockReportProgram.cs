@@ -9,6 +9,7 @@
 
 
 using Newtonsoft.Json;
+using ObjectOrientedProgram.CommercialDataProcessingProgram.GetterSetter;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,6 +18,12 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 {
     class StockReportProgram
     {
+
+        public static string customerLoginPath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CommercialDataProcessingProgram\Data\CustomerInfo.json";
+        public static string customerPurchasedSharePath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CommercialDataProcessingProgram\Data\CustomerPurchasedInfo.json";
+        public static string StockDataPath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CommercialDataProcessingProgram\Data\StockData.json";
+        public static string customerSoldSharePath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CommercialDataProcessingProgram\Data\CustomerSoldInfo.json";
+
         /// <summary>
         /// This Method is used to test the StockReportProgram Class.
         /// </summary>
@@ -28,15 +35,12 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
                 Console.WriteLine();
                 Console.WriteLine("-----------------Commercial Data Processing Program-----------------");
 
-                string customerLoginPath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CommercialDataProcessingProgram\Data\CustomerInfo.json";
-                string stockDataPath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CommercialDataProcessingProgram\Data\StockData.json";
                 string loginUserName = "";
                 int choice;
                 bool flag = false, inputFlag = false;
                 StockAccount stockAccount;
 
-                List<Customer> customers = Utility.ReadCustomerData(customerLoginPath);
-                Customer customer;
+                List<Customer> customers = Utility.ReadCustomerData();
 
                 do
                 {
@@ -62,7 +66,7 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
                         case 2:
                             Console.WriteLine();
-                            customers = Utility.ReadCustomerData(customerLoginPath);
+                            customers = Utility.ReadCustomerData();
                             Console.Write("Enter Your UserName: ");
                             loginUserName = Console.ReadLine();
                             if (!Utility.NameValidation(loginUserName))
@@ -92,8 +96,8 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
                 } while (!flag);
 
-                int stockChoice, amount;
-                string shareName;
+                int amount, count;
+                string shareName=null;
                 flag = false;
                 Console.WriteLine();
                 Console.WriteLine("Welcome {0} to the Commercial Data Processing", loginUserName);
@@ -113,32 +117,108 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
                     switch(choice)
                     {
                         case 1:
-                            Console.WriteLine();
-                            List<StockPortfolio> stockPortfolios = Utility.ReadStocksData(stockDataPath);
+                            List<StockPortfolio> stockPortfolios = StockAccount.ListOfCompanyShares();
+                            
                             do
                             {
+                                count = 1;
+                                Console.WriteLine();
                                 Console.WriteLine("The List of the shares Available are:");
                                 Utility.DisplayStocks(stockPortfolios);
                                 Console.WriteLine();
                                 Console.Write("Enter your Choice: ");
-                                inputFlag = int.TryParse(Console.ReadLine(), out stockChoice);
+                                inputFlag = int.TryParse(Console.ReadLine(), out int stockChoice);
                                 Utility.ErrorMessage(inputFlag);
-                                if (stockChoice == stockPortfolios.Count + 1)
+                                if (stockChoice == (stockPortfolios.Count + 1))
                                     break;
+                                if (stockChoice <= 0 || stockChoice > stockPortfolios.Count + 1)
+                                {
+                                    Console.WriteLine("Invalid Choice !!");
+                                    inputFlag = false;
+                                }
+                                else
+                                {
+                                    inputFlag = true;
+                                    foreach (StockPortfolio stockPortfolio in stockPortfolios)
+                                    {
+                                        if (count == stockChoice)
+                                        {
+                                            shareName = stockPortfolio.ShareName;
+                                            break;
+                                        }
+                                        count++;
+                                    }
+                                    Console.WriteLine();
+                                    Console.WriteLine("You choose to buy the {0} Share", shareName);
+                                    do
+                                    {
+                                        Console.Write("Enter the Amount of {0} Share you want to buy: ", shareName);
+                                        inputFlag = int.TryParse(Console.ReadLine(), out amount);
+                                        Utility.ErrorMessage(inputFlag);
+                                    } while (!inputFlag);
+                                    stockAccount = new StockAccount();
+                                    stockAccount.Buy(amount, shareName);
+                                    
+                                }
+                                
                             } while (!inputFlag);
+                            break;
 
-                            Console.WriteLine();
-                            Console.Write("Enter the Name Of Share you want to Buy: ");
-                            shareName = Console.ReadLine();
+                        case 2:
+                            List<CustomerPurchased> customerPurchaseds = Utility.ReadCustomerPurchasedLists();
+                            customerPurchaseds = customerPurchaseds.FindAll(x => x.UserName.Equals(Utility.UserName));
                             do
                             {
-                                Console.Write("Enter the Amount of Share you want to buy: ");
-                                inputFlag = int.TryParse(Console.ReadLine(), out amount);
+                                count = 1;
+                                Console.WriteLine();
+                                customerPurchaseds = Utility.AllCustomerPurchasedShare(customerPurchaseds);
+                                if (customerPurchaseds == null)
+                                {
+                                    Console.WriteLine("Currently You Have Purchased Nothing.");
+                                    break;
+                                }
+                                Console.WriteLine("The List of the shares you have brought are:");
+                                Utility.DisplayPurchasedShares(customerPurchaseds);
+                                Console.WriteLine();
+                                Console.WriteLine("Which Share You want to Sell.");
+                                Console.Write("Enter your Choice: ");
+                                inputFlag = int.TryParse(Console.ReadLine(), out int stockSoldChoice);
                                 Utility.ErrorMessage(inputFlag);
+                                
+                                if (stockSoldChoice <= 0 || stockSoldChoice > customerPurchaseds.Count)
+                                {
+                                    Console.WriteLine("Invalid Choice !!");
+                                    inputFlag = false;
+                                }
+                                else
+                                {
+                                    inputFlag = true;
+                                    foreach (CustomerPurchased customerPurchased in customerPurchaseds)
+                                    {
+                                        if (count == stockSoldChoice)
+                                        {
+                                            shareName = customerPurchased.ShareName;
+                                            break;
+                                        }
+                                        count++;
+
+                                    }
+                                    Console.WriteLine();
+                                    Console.WriteLine("You choose to sold the {0} Share", shareName);
+                                    do
+                                    {
+                                        Console.Write("Enter the Amount of {0} Share you want to sold: ", shareName);
+                                        inputFlag = int.TryParse(Console.ReadLine(), out amount);
+                                        Utility.ErrorMessage(inputFlag);
+                                    } while (!inputFlag);
+                                    stockAccount = new StockAccount();
+                                    //stockAccount.Sell(amount, shareName);
+
+                                }
+
                             } while (!inputFlag);
-                            stockAccount = new StockAccount();
-                            stockAccount.Buy(amount, shareName);
                             break;
+
 
                         case 3:
                             flag = true;

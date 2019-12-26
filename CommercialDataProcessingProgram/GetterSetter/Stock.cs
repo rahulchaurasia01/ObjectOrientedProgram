@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ObjectOrientedProgram.CommercialDataProcessingProgram
+namespace ObjectOrientedProgram.CommercialDataProcessingProgram.GetterSetter
 {
     class Stock
     {
