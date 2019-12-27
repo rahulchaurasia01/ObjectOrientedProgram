@@ -39,7 +39,8 @@ namespace ObjectOrientedProgram
                         Console.WriteLine("5. Commercial Data Processing Program");
                         Console.WriteLine("6. Address Book Program");
                         Console.WriteLine("7. Deck Of Cards Program");
-                        Console.WriteLine("8. Exit");
+                        Console.WriteLine("8. Deck Of Cards Using Queue Program");
+                        Console.WriteLine("9. Exit");
                         Console.Write("Enter Your Choice: ");
                         flag = int.TryParse(Console.ReadLine(), out choice);
                         Utility.ErrorMessage(flag);
@@ -76,6 +77,10 @@ namespace ObjectOrientedProgram
                             break;
 
                         case 8:
+                            DeckOfCardsUsingQueueProgram.DeckOfCardsUsingQueue();
+                            break;
+
+                        case 9:
                             flag = true;
                             break;
 

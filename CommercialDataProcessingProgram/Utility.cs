@@ -3,6 +3,7 @@ using ObjectOrientedProgram.CommercialDataProcessingProgram.GetterSetter;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using ObjectOrientedProgram.Core;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -230,8 +231,8 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
             string updateStockData = JsonConvert.SerializeObject(stock);
 
-            using (StreamWriter streamWriter = new StreamWriter(filename))
-                streamWriter.WriteLine(updateStockData);
+            using StreamWriter streamWriter = new StreamWriter(filename);
+            streamWriter.WriteLine(updateStockData);
 
         }
 
@@ -282,26 +283,43 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
         }
 
-        public static CustomerPurchased SinglePurchasedData(String symbol)
+
+        public static void DisplayTransaction()
         {
             List<CustomerPurchased> customerPurchaseds = ReadCustomerPurchasedLists();
+            customerPurchaseds = customerPurchaseds.FindAll(x => x.UserName.Equals(UserName));
 
-            customerPurchaseds = customerPurchaseds.FindAll(x => x.UserName.Equals(Utility.UserName));
+            QueueLinkedList queueLinkedList = new QueueLinkedList();
 
-            customerPurchaseds = AllCustomerPurchasedShare(customerPurchaseds);
+            bool inputFlag;
+            int choice;
 
-            if (customerPurchaseds.Count != 0)
+            DisplayPurchasedShares(customerPurchaseds);
+
+            do
             {
-                foreach (CustomerPurchased customerPurchased in customerPurchaseds)
+                Console.WriteLine();
+                Console.Write("Which Share Transaction you want to view: ");
+                inputFlag = int.TryParse(Console.ReadLine(), out choice);
+                ErrorMessage(inputFlag);
+                if (!inputFlag)
+                    DisplayPurchasedShares(customerPurchaseds);
+                if (choice <= 0 || choice > customerPurchaseds.Count)
                 {
-                    if (customerPurchased.ShareName.Equals(symbol))
-                        return customerPurchased;
+                    Console.WriteLine("Invalid Choice !!!");
+                    DisplayPurchasedShares(customerPurchaseds);
+                    Console.WriteLine();
+                    inputFlag = false;
                 }
-            }
 
-            return null;
+            } while (!inputFlag);
+
+            foreach (CustomerPurchased customerPurchased in customerPurchaseds)
+                queueLinkedList.Enqueue(customerPurchased.DateAndTime);
+
+            Console.WriteLine("The Transaction Date is: {0}", queueLinkedList.Search(choice));
+
         }
-
 
         /// <summary>
         /// It return true If the validation Matches the pattern.

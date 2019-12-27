@@ -110,8 +110,9 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
                         Console.WriteLine("1. Your Account Value.");
                         Console.WriteLine("2. Buy the Shares.");
                         Console.WriteLine("3. Sell the Shares.");
-                        Console.WriteLine("4. Print Report.");
-                        Console.WriteLine("5. Exit");
+                        Console.WriteLine("4. Display Transaction");
+                        Console.WriteLine("5. Print Report.");
+                        Console.WriteLine("6. Exit");
                         Console.Write("Enter your Choice: ");
                         inputFlag = int.TryParse(Console.ReadLine(), out choice);
                         Utility.ErrorMessage(inputFlag);
@@ -230,11 +231,16 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
                         case 4:
                             Console.WriteLine();
+                            Utility.DisplayTransaction();
+                            break;
+
+                        case 5:
+                            Console.WriteLine();
                             stockAccount = new StockAccount();
                             stockAccount.PrintReport();
                             break;
 
-                        case 5:
+                        case 6:
                             flag = true;
                             break;
 

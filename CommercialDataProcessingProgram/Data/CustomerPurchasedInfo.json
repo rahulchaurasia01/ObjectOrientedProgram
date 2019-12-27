@@ -47,6 +47,14 @@
       "NoOfShare": "2.0833333",
       "Amount": "5000",
       "DateAndTime": "12/26/2019 7:15:14 PM"
+    },
+    {
+      "Transaction_Id": "56dcba72-0e1c-4c4e-8e7a-ed155c748056",
+      "UserName": "rahul01",
+      "ShareName": "Tcs",
+      "NoOfShare": "4.1666665",
+      "Amount": "7500",
+      "DateAndTime": "12/27/2019 5:13:21 PM"
     }
   ]
 }
