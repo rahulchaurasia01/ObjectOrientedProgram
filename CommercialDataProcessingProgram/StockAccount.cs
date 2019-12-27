@@ -64,9 +64,23 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
         }
 
+        /// <summary>
+        /// It return the total Amount a Customer is worth.
+        /// </summary>
+        /// <returns></returns>
         public double ValueOf()
         {
-            return 0.0;
+            double totalAmount = 0.0;
+
+            List<CustomerPurchased> customerPurchased1 = Utility.ReadCustomerPurchasedLists();
+            customerPurchased1 = customerPurchased1.FindAll(x => x.UserName.Equals(Utility.UserName));
+            customerPurchased1 = Utility.AllCustomerPurchasedShare(customerPurchased1);
+
+
+            foreach (CustomerPurchased customerPurchased in customerPurchased1)
+                totalAmount += Convert.ToDouble(customerPurchased.Amount);
+
+            return totalAmount;
         }
 
         /// <summary>
@@ -218,9 +232,53 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
         public void PrintReport()
         {
+            List<CustomerPurchased> customerPurchaseds = Utility.ReadCustomerPurchasedLists();
+            customerPurchaseds = customerPurchaseds.FindAll(x => x.UserName.Equals(Utility.UserName));
+            if (customerPurchaseds.Count == 0)
+            {
+                Console.WriteLine("You Have Purchased Anything. ");
+                return;
+            }
 
+            List<CustomerPurchased> customerPurchaseds2;
+            
+            int n = ListOfCompanyShares().Count;
+            string shareName = "";
+            double specificShare = 0.0, totalAmount = 0.0, amount=0.0, totalShare=0.0, tempAmount=0.0;
+
+            int count = 1;
+            Console.WriteLine("No.\tShare Name\tNo. Of Share\t\tAmount\t\tTotal Amount");
+
+            for (int i = 0; i < n; i++)
+            {
+                shareName = ListOfCompanyShares()[i].ShareName;
+                amount = Convert.ToDouble(ListOfCompanyShares()[i].SharePrice);
+                customerPurchaseds2 = customerPurchaseds.FindAll(x => x.ShareName.Equals(shareName));
+                if (customerPurchaseds2.Count != 0)
+                {
+                    foreach (CustomerPurchased customerPurchased in customerPurchaseds2)
+                    {
+                        specificShare += Convert.ToDouble(customerPurchased.NoOfShare);
+                        totalAmount += Convert.ToDouble(customerPurchased.Amount);
+
+                    }
+
+                    Console.WriteLine(count + "\t" + shareName + "\t\t" + specificShare + "\t\tRs." + amount +"\t\tRs."+ totalAmount);
+
+                    count++;
+                    totalShare += specificShare;
+                    specificShare = 0.0;
+                    tempAmount += totalAmount;
+                    totalAmount = 0.0;
+                }
+
+            }
+            Console.WriteLine();
+            Console.WriteLine("The Total Share You Have: {0}", totalShare);
+            Console.WriteLine("The Total Amount of Share You Have: Rs.{0}", tempAmount);
+
+            
         }
-
 
         /// <summary>
         /// It will read all the stocks data.

@@ -107,16 +107,25 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
                     do
                     {
                         Console.WriteLine();
-                        Console.WriteLine("1. Buy the Shares.");
-                        Console.WriteLine("2. Sell the Shares.");
-                        Console.WriteLine("3. Exit");
+                        Console.WriteLine("1. Your Account Value.");
+                        Console.WriteLine("2. Buy the Shares.");
+                        Console.WriteLine("3. Sell the Shares.");
+                        Console.WriteLine("4. Print Report.");
+                        Console.WriteLine("5. Exit");
                         Console.Write("Enter your Choice: ");
                         inputFlag = int.TryParse(Console.ReadLine(), out choice);
                         Utility.ErrorMessage(inputFlag);
                     } while (!inputFlag);
                     switch(choice)
                     {
+
                         case 1:
+                            Console.WriteLine();
+                            stockAccount = new StockAccount();
+                            Console.WriteLine("Your Account Worth is: Rs.{0}", stockAccount.ValueOf());
+                            break;
+
+                        case 2:
                             List<StockPortfolio> stockPortfolios = StockAccount.ListOfCompanyShares();
                             
                             do
@@ -164,7 +173,7 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
                             } while (!inputFlag);
                             break;
 
-                        case 2:
+                        case 3:
                             List<CustomerPurchased> customerPurchaseds = Utility.ReadCustomerPurchasedLists();
                             customerPurchaseds = customerPurchaseds.FindAll(x => x.UserName.Equals(Utility.UserName));
                             do
@@ -219,8 +228,13 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
                             } while (!inputFlag);
                             break;
 
+                        case 4:
+                            Console.WriteLine();
+                            stockAccount = new StockAccount();
+                            stockAccount.PrintReport();
+                            break;
 
-                        case 3:
+                        case 5:
                             flag = true;
                             break;
 
