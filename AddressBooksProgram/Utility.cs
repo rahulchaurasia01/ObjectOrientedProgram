@@ -361,7 +361,6 @@ namespace ObjectOrientedProgram.AddressBooksProgram
                 streamWriter.WriteLine(printAddressBook);
         }
 
-
         /// <summary>
         /// It Display All the Address Book Data
         /// </summary>
