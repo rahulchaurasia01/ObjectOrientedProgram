@@ -1,5 +1,5 @@
 ﻿/*
- *  Purpose: The Utility Class is used to store the logic of the Data Structure Program.
+ *  Purpose: The Utility Class is used to store the logic of the Object Oriented Program.
  *  
  *  @author  Rahul Chaurasia
  *  @version 1.0

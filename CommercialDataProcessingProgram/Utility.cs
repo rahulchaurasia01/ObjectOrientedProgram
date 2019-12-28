@@ -1,4 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿/*
+ *  Purpose: The Utility Class is used to store the logic of the Commercial Data Processing Program.
+ *  
+ *  @author  Rahul Chaurasia
+ *  @version 1.0
+ *  @since   28-12-2019
+ * 
+ */
+
+using Newtonsoft.Json;
 using ObjectOrientedProgram.CommercialDataProcessingProgram.GetterSetter;
 using System;
 using System.Collections.Generic;

@@ -40,7 +40,8 @@ namespace ObjectOrientedProgram
                         Console.WriteLine("6. Address Book Program");
                         Console.WriteLine("7. Deck Of Cards Program");
                         Console.WriteLine("8. Deck Of Cards Using Queue Program");
-                        Console.WriteLine("9. Exit");
+                        Console.WriteLine("9. Clinique Management Program");
+                        Console.WriteLine("10. Exit");
                         Console.Write("Enter Your Choice: ");
                         flag = int.TryParse(Console.ReadLine(), out choice);
                         Utility.ErrorMessage(flag);
@@ -81,6 +82,10 @@ namespace ObjectOrientedProgram
                             break;
 
                         case 9:
+                            Console.WriteLine("This Program has not Been Implemented");
+                            break;
+
+                        case 10:
                             flag = true;
                             break;
 
