@@ -1,0 +1,40 @@
+{
+  "GetAppointments": [
+    {
+      "DoctorId": "83492",
+      "AppointmentDateAndTime": "31/12/2019",
+      "GetPatientAppointments": [
+        {
+          "AppointmentId": "49c18b56-831b-4ba5-a9bf-063e1a970077",
+          "PatientId": "55318"
+        },
+        {
+          "AppointmentId": "277056df-5f59-4575-8db0-48f0c142cab6",
+          "PatientId": "252367"
+        },
+        {
+          "AppointmentId": "ae8400f9-da31-420d-be5a-e8644f98b77e",
+          "PatientId": "380702"
+        },
+        {
+          "AppointmentId": "c632f12c-3d70-4119-bda0-3a4815f29ec5",
+          "PatientId": "438663"
+        },
+        {
+          "AppointmentId": "ae8727c5-2ccd-4a24-a083-a399dc269849",
+          "PatientId": "111567"
+        }
+      ]
+    },
+    {
+      "DoctorId": "83492",
+      "AppointmentDateAndTime": "1/1/2020",
+      "GetPatientAppointments": [
+        {
+          "AppointmentId": "851495d0-5195-465a-8b0c-037a64583b16",
+          "PatientId": "111567"
+        }
+      ]
+    }
+  ]
+}
