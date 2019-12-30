@@ -7,6 +7,7 @@
  * 
  */
 
+using ConsoleTables;
 using Newtonsoft.Json;
 using ObjectOrientedProgram.CliniqueManagementProgram.GetterSetter;
 using System;
@@ -61,6 +62,134 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram.Core
                 patients = PatientObject.GetPatients;
 
             return patients;
+
+        }
+        
+        /// <summary>
+        /// It Read the Json File Of Appointment
+        /// </summary>
+        /// <returns></returns>
+        public static List<Appointment> ReadAppointmentjsonFile()
+        {
+            string filename = CliniqueManagementsProgram.AppointmentPath;
+
+            string appointmentData = File.ReadAllText(filename);
+
+            var appointmentObject = JsonConvert.DeserializeObject<Appointments>(appointmentData);
+
+            List<Appointment> appointments;
+
+            if (appointmentObject == null)
+                appointments = new List<Appointment>();
+            else
+                appointments = appointmentObject.GetAppointments;
+
+            return appointments;
+        }
+
+        /// <summary>
+        /// It Create a New Appointment for Patient with doctor.
+        /// </summary>
+        /// <returns>It return the Doctor Object</returns>
+        public static void CreateAppointment()
+        {
+            string appointmentId, appointmentDateTime;
+
+            int doctorId, patientId;
+
+            bool flag;
+
+            List<Appointment> appointments = ReadAppointmentjsonFile();
+            Appointment appointment;
+            List<PatientAppointment> patientAppointments;
+            PatientAppointment patientAppointment;
+            
+
+            appointmentId = Guid.NewGuid().ToString();
+
+            do
+            {
+                Console.WriteLine();
+                Console.Write("Enter the Doctor Id: ");
+                flag = int.TryParse(Console.ReadLine(), out doctorId);
+                ErrorMessage(flag);
+            } while (!flag);
+
+            do
+            {
+                Console.WriteLine();
+                Console.Write("Enter the Patient Id: ");
+                flag = int.TryParse(Console.ReadLine(), out patientId);
+                ErrorMessage(flag);
+            } while (!flag);
+
+            
+
+            do
+            {
+                Console.WriteLine();
+                Console.Write("Enter the Date for Appointment [dd/MM/yyyy]: ");
+                appointmentDateTime = Console.ReadLine();
+                flag = CliniqueManagementValidation.PatientAppointmentValidation(appointmentDateTime);
+                if (!flag)
+                    Console.WriteLine("Please Input the Proper Time");
+                else
+                {
+                    if(appointments.Count != 0)
+                    {
+                        foreach(Appointment appointment1 in appointments)
+                        {
+                            if(appointment1.DoctorId.Equals(doctorId.ToString()) && appointment1.AppointmentDateAndTime.Equals(appointmentDateTime.ToString()))
+                            {
+                                if(appointment1.GetPatientAppointments.Count == 5)
+                                {
+                                    Console.WriteLine("This Day Slot is full, Please Choose Different Day to Book an Appointment.");
+                                    flag = false;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            } while (!flag);
+
+            
+
+            if (appointments.Count != 0)
+            {
+                foreach (Appointment appointment1 in appointments)
+                {
+                    if (appointment1.DoctorId.Equals(doctorId.ToString()) && appointment1.AppointmentDateAndTime.Equals(appointmentDateTime.ToString()))
+                    {
+                        patientAppointments = appointment1.GetPatientAppointments;
+                        patientAppointment = new PatientAppointment
+                        {
+                            AppointmentId = appointmentId,
+                            PatientId = patientId.ToString()
+                        };
+                        patientAppointments.Add(patientAppointment);
+                        appointment1.GetPatientAppointments = patientAppointments;
+                        UpdateAppointmentToJson(appointments);
+                        
+                        return;
+                    }
+                }
+            }
+            appointment = new Appointment
+            {
+                DoctorId = doctorId.ToString(),
+                AppointmentDateAndTime = appointmentDateTime
+            };
+            patientAppointments = new List<PatientAppointment>();
+            patientAppointment = new PatientAppointment
+            {
+                AppointmentId = appointmentId,
+                PatientId = patientId.ToString()
+            };
+            patientAppointments.Add(patientAppointment);
+            appointment.GetPatientAppointments = patientAppointments;
+            appointments.Add(appointment);
+            UpdateAppointmentToJson(appointments);
 
         }
 
@@ -244,13 +373,14 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram.Core
             else
             {
                 int count = 1;
-                Console.WriteLine("No.\tId\tName\tSpecialization\tAvailability");
+                var table = new ConsoleTable("No.", "Id", "Name", "Specialization", "Availability");
                 foreach(Doctor doctor in doctors)
                 {
-                    Console.WriteLine(count + "\t" + doctor.DoctorId + "\t" + doctor.Name + "\t" + doctor.Specialization + "\t" + doctor.Availability);
+                    table.AddRow(count,  doctor.DoctorId, doctor.Name, doctor.Specialization, doctor.Availability);
                     count++;
                 }
-
+                table.Options.EnableCount = false;
+                table.Write();
             }
         }
 
@@ -268,12 +398,14 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram.Core
             else
             {
                 int count = 1;
-                Console.WriteLine("No.\tId\tName\tMobile Number\tAge");
+                var table = new ConsoleTable("No.","Id","Name", "Mobile Number","Age");
                 foreach (Patient patient in patients)
                 {
-                    Console.WriteLine(count + "\t" + patient.PatientId + "\t" + patient.Name + "\t" + patient.MobileNumber + "\t" + patient.Age);
+                    table.AddRow(count, patient.PatientId, patient.Name, patient.MobileNumber, patient.Age);
                     count++;
                 }
+                table.Options.EnableCount = false; 
+                table.Write();
             }
 
             
@@ -466,8 +598,8 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram.Core
 
             string updateDoctorData = JsonConvert.SerializeObject(doctors1);
 
-            using (StreamWriter streamWriter = new StreamWriter(filename))
-                streamWriter.WriteLine(updateDoctorData);
+            using StreamWriter streamWriter = new StreamWriter(filename);
+            streamWriter.WriteLine(updateDoctorData);
 
         }
 
@@ -486,8 +618,30 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram.Core
 
             string updatePatientData = JsonConvert.SerializeObject(patients1);
 
-            using (StreamWriter streamWriter = new StreamWriter(filename))
-                streamWriter.WriteLine(updatePatientData);
+            using StreamWriter streamWriter = new StreamWriter(filename);
+            streamWriter.WriteLine(updatePatientData);
+
+        }
+
+        /// <summary>
+        /// Update Appointment Details to Json file.
+        /// </summary>
+        /// <param name="appointments">List Of All Appointment.</param>
+        public static void UpdateAppointmentToJson(List<Appointment> appointments)
+        {
+            string filename = CliniqueManagementsProgram.AppointmentPath;
+
+            Appointments appointments1 = new Appointments()
+            {
+                GetAppointments = appointments
+            };
+
+            string updateAppointmentData = JsonConvert.SerializeObject(appointments1);
+
+            using StreamWriter streamWriter = new StreamWriter(filename);
+            streamWriter.WriteLine(updateAppointmentData);
+
+            Console.WriteLine("Appointment Has been Booked.");
 
         }
 

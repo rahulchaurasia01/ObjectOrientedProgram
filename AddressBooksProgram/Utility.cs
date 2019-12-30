@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConsoleTables;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -373,12 +374,16 @@ namespace ObjectOrientedProgram.AddressBooksProgram
             else
             {
                 int count = 1;
-                Console.WriteLine("No.\tName \tMobile Number \tEmail-Id \tZip\tAddress");
+  
+                var table = new ConsoleTable("No.", "Name","Mobile Number","Email-Id","Zip","Address");
                 foreach (AddressBook addressBook in addressBooks)
                 {
-                    Console.WriteLine(count + "\t" + addressBook.Name + "\t" + addressBook.MobileNumber + "\t" + addressBook.Email + "\t" + addressBook.Zip + "\t" + addressBook.Address);
+                    table.AddRow(count, addressBook.Name, addressBook.MobileNumber, addressBook.Email, addressBook.Zip, addressBook.Address);
                     count++;
                 }
+
+                table.Options.EnableCount = false;
+                table.Write();
             }
         }
         

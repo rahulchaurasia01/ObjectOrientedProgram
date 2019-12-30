@@ -55,6 +55,30 @@
       "NoOfShare": "4.1666665",
       "Amount": "7500",
       "DateAndTime": "12/27/2019 5:13:21 PM"
+    },
+    {
+      "Transaction_Id": "8f2fe28b-88c1-453f-b8f1-03b0ab894897",
+      "UserName": "manish01",
+      "ShareName": "Mrf",
+      "NoOfShare": "2.4",
+      "Amount": "180000",
+      "DateAndTime": "12/30/2019 2:38:12 PM"
+    },
+    {
+      "Transaction_Id": "2b72bf04-1be7-4874-989e-0fb97c75f55e",
+      "UserName": "rahul01",
+      "ShareName": "Wipro",
+      "NoOfShare": "17.716536",
+      "Amount": "4500",
+      "DateAndTime": "12/30/2019 2:41:27 PM"
+    },
+    {
+      "Transaction_Id": "b10233a9-cb07-4c7d-86b1-0100659be6f7",
+      "UserName": "rahul01",
+      "ShareName": "Ril",
+      "NoOfShare": "1.875",
+      "Amount": "4500",
+      "DateAndTime": "12/30/2019 4:33:18 PM"
     }
   ]
 }

@@ -15,6 +15,7 @@ using System.IO;
 using ObjectOrientedProgram.Core;
 using System.Text;
 using System.Text.RegularExpressions;
+using ConsoleTables;
 
 namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 {
@@ -97,13 +98,17 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
             else
             {
                 int count = 1;
-                Console.WriteLine("No.\tShare Name\tNo. Of Share\t\tShare Price");
+                var table = new ConsoleTable("No.","Share Name","No. Of Share","Share Price");
                 foreach (StockPortfolio stock in stockPortfolios)
                 {
-                    Console.WriteLine(count + "\t" + stock.ShareName + "\t\t" + stock.NoOfShare + "\t\tRs." + stock.SharePrice);
+                    table.AddRow(count, stock.ShareName, stock.NoOfShare, "Rs." + stock.SharePrice);
                     count++;
                 }
-                Console.WriteLine(count + ". Exit");
+               
+                table.AddRow(count + ". Exit", null,null,null);
+                table.Options.EnableCount = false; 
+                table.Write();
+
             }
         }
 
@@ -116,19 +121,22 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
             double totalShare = 0.0, totalAmount = 0.0;
 
             int count = 1;
-            Console.WriteLine("No.\tShare Name\tNo. Of Share\t\tAmount");
+            var table = new ConsoleTable("No.", "Share Name","No. Of Share","Amount");
 
             foreach (CustomerPurchased customerPurchased in customerPurchaseds)
             {
-                Console.WriteLine(count + "\t" + customerPurchased.ShareName + "\t\t" + customerPurchased.NoOfShare + "\t\tRs." + customerPurchased.Amount);
+                table.AddRow(count, customerPurchased.ShareName, customerPurchased.NoOfShare,"Rs." + customerPurchased.Amount);
                 totalShare += Convert.ToDouble(customerPurchased.NoOfShare);
                 totalAmount += Convert.ToDouble(customerPurchased.Amount);
                 count++;
             }
 
-            Console.WriteLine("\t \t\t----------\t\t----------");
-            Console.WriteLine("Total: \t \t \t{0} \t\tRs.{1}", totalShare, totalAmount);
+            table.Options.EnableCount = false;
+            
+            table.AddRow(null, null, "----------", "----------");
+            table.AddRow("Total:", null, totalShare, "Rs." +totalAmount);
 
+            table.Write();
 
         }
         
@@ -291,7 +299,6 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
             return null;
 
         }
-
 
         public static void DisplayTransaction()
         {

@@ -1,16 +1,1 @@
-{
-  "Customers": [
-    {
-      "ID": "a54447cc-016a-4e0a-b2b5-fbfe9f208c1a",
-      "UserName": "rahul01"
-    },
-    {
-      "ID": "fcdac318-82ba-4997-bfa6-46b43fc31693",
-      "UserName": "sonu28"
-    },
-    {
-      "ID": "a99b929f-0ee4-409b-a9f7-0337d594efce",
-      "UserName": "pooja06"
-    }
-  ]
-}
+{"Customers":[{"ID":"a54447cc-016a-4e0a-b2b5-fbfe9f208c1a","UserName":"rahul01"},{"ID":"fcdac318-82ba-4997-bfa6-46b43fc31693","UserName":"sonu28"},{"ID":"a99b929f-0ee4-409b-a9f7-0337d594efce","UserName":"pooja06"},{"ID":"a2199997-9b08-4a2d-8715-1f329597ff9a","UserName":"manish01"}]}

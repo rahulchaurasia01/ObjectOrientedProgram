@@ -7,6 +7,7 @@
  * 
  */
 
+using ConsoleTables;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,22 +26,19 @@ namespace ObjectOrientedProgram.InventoryManagementProgram
             int count = 1;
             Console.WriteLine();
             Console.WriteLine("\t\t{0}\t\t", stockDepartment);
-            Console.WriteLine("No. \t Name \t\t Weight(kg)\t\tRs.Price/Kg");
+            var table = new ConsoleTable("No.", "Name", "Weight(kg)", "Rs.Price/Kg");
             if (list == null)
                 Console.WriteLine("No Data Present. !!");
             else
             {
                 foreach (Properties li in list)
                 {
-                    if(li.Name.Length > 15)
-                        Console.WriteLine(count+"\t"+li.Name + "\t" + li.Weight + "\t\t" + li.Price);
-                    else if( li.Name.Length <= 5)
-                        Console.WriteLine(count+"\t"+li.Name + "\t\t\t" + li.Weight + "\t\t" + li.Price);
-                    else
-                        Console.WriteLine(count+"\t"+li.Name + "\t\t" + li.Weight + "\t\t" + li.Price);
-
+                    table.AddRow(count, li.Name, li.Weight, li.Price);
+                    
                     count++;
                 }
+                table.Options.EnableCount = false;
+                table.Write();
             }
         }
 

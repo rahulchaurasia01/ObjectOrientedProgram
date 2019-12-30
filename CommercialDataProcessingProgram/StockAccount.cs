@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using ConsoleTables;
+using Newtonsoft.Json;
 using ObjectOrientedProgram.CommercialDataProcessingProgram.GetterSetter;
 using System;
 using System.Collections.Generic;
@@ -247,7 +248,7 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
             double specificShare = 0.0, totalAmount = 0.0, amount=0.0, totalShare=0.0, tempAmount=0.0;
 
             int count = 1;
-            Console.WriteLine("No.\tShare Name\tNo. Of Share\t\tAmount\t\tTotal Amount");
+            var table = new ConsoleTable("No.", "Share Name", "No. Of Share" ,"Amount", "Total Amount");
 
             for (int i = 0; i < n; i++)
             {
@@ -263,7 +264,7 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
 
                     }
 
-                    Console.WriteLine(count + "\t" + shareName + "\t\t" + specificShare + "\t\tRs." + amount +"\t\tRs."+ totalAmount);
+                    table.AddRow(count, shareName, specificShare,"Rs." + amount, "Rs."+ totalAmount);
 
                     count++;
                     totalShare += specificShare;
@@ -273,11 +274,12 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
                 }
 
             }
-            Console.WriteLine();
+            table.Options.EnableCount = false;
+            table.Write();
+
             Console.WriteLine("The Total Share You Have: {0}", totalShare);
             Console.WriteLine("The Total Amount of Share You Have: Rs.{0}", tempAmount);
 
-            
         }
 
         /// <summary>

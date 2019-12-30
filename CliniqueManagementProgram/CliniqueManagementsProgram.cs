@@ -20,6 +20,7 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram
 
         public static string DoctorPath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CliniqueManagementProgram\Data\Doctors.json";
         public static string PatientPath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CliniqueManagementProgram\Data\Patients.json";
+        public static string AppointmentPath = @"C:\Users\User\source\repos\ObjectOrientedProgram\ObjectOrientedProgram\CliniqueManagementProgram\Data\AppointmentDetails.json";
 
         /// <summary>
         /// This Method is used to test the Clinique Management program class.
@@ -34,7 +35,7 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram
                 Console.WriteLine();
                 Console.WriteLine("-----------------Clinique Management Program-----------------");
 
-
+                Console.WriteLine(DateTime.Today.ToString("dd/MM/yyyy"));
                 List<Doctor> doctors = Core.Utility.ReadDoctorJsonFile();
                 List<Patient> patients = Core.Utility.ReadPatientJsonFile();
 
@@ -85,6 +86,10 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram
                             Console.WriteLine();
                             Core.Utility.DisplayAllPatient(patients);
                             Core.Utility.DisplayUserQueryPatient(patients);
+                            break;
+
+                        case 5:
+                            Core.Utility.CreateAppointment();
                             break;
 
                         case 6:

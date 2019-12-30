@@ -1,16 +1,1 @@
-{
-  "GetPatients": [
-    {
-      "PatientId": "145998",
-      "Name": "SOnu",
-      "MobileNumber": "1234567891",
-      "Age": "22"
-    },
-    {
-      "PatientId": "659084",
-      "Name": "Lucy",
-      "MobileNumber": "7894561231",
-      "Age": "23"
-    }
-  ]
-}
+{"GetPatients":[{"PatientId":"252367","Name":"Sonu","MobileNumber":"1234567891","Age":"23"},{"PatientId":"380702","Name":"Saket","MobileNumber":"7411239638","Age":"24"},{"PatientId":"438663","Name":"Manish","MobileNumber":"4561237895","Age":"23"},{"PatientId":"55318","Name":"Lucy","MobileNumber":"9638527415","Age":"22"},{"PatientId":"111567","Name":"Suraj","MobileNumber":"9876543215","Age":"22"}]}
