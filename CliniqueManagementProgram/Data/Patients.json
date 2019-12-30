@@ -1,0 +1,16 @@
+{
+  "GetPatients": [
+    {
+      "PatientId": "145998",
+      "Name": "SOnu",
+      "MobileNumber": "1234567891",
+      "Age": "22"
+    },
+    {
+      "PatientId": "659084",
+      "Name": "Lucy",
+      "MobileNumber": "7894561231",
+      "Age": "23"
+    }
+  ]
+}

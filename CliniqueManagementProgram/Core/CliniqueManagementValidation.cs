@@ -33,21 +33,10 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram.Core
         /// </summary>
         /// <param name="name">Doctor Specialization</param>
         /// <returns>It return true if the doctor Specialization Matches the Pattern.</returns>
-        public static bool DoctorSpecializationValidation(string validation)
+        public static bool DoctorSpecializationValidation(string specializaion)
         {
             string pattern = @"^[a-zA-Z\s]*$";
-            return Regex.IsMatch(validation, pattern);
-        }
-
-        /// <summary>
-        /// It Validate the Doctors Availability
-        /// </summary>
-        /// <param name="availability">Doctors Availability</param>
-        /// <returns>It return true if the doctors Availability Matches the Pattern.</returns>
-        public static bool DoctorAvailabilityValidation(string availability)
-        {
-            string pattern = @"([AaPp][Mm]|^both)";
-            return Regex.IsMatch(availability, pattern);
+            return Regex.IsMatch(specializaion, pattern);
         }
 
         /// <summary>

@@ -7,6 +7,7 @@
  */
 
 using ObjectOrientedProgram.AddressBooksProgram;
+using ObjectOrientedProgram.CliniqueManagementProgram;
 using ObjectOrientedProgram.DeckOfCardProgram;
 using ObjectOrientedProgram.InventoryDataManagement;
 using ObjectOrientedProgram.InventoryManagementProgram;
@@ -82,7 +83,7 @@ namespace ObjectOrientedProgram
                             break;
 
                         case 9:
-                            Console.WriteLine("This Program has not Been Implemented");
+                            CliniqueManagementsProgram.CliniqueManagements();
                             break;
 
                         case 10:

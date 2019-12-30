@@ -1,0 +1,16 @@
+{
+  "GetDoctors": [
+    {
+      "DoctorId": "83492",
+      "Name": "Rahul",
+      "Specialization": "Heart Surgery",
+      "Availability": "Pm"
+    },
+    {
+      "DoctorId": "109908",
+      "Name": "Pooja",
+      "Specialization": "Eye Surgery",
+      "Availability": "Am"
+    }
+  ]
+}
