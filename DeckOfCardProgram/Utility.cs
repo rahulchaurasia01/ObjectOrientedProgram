@@ -27,85 +27,106 @@ namespace ObjectOrientedProgram.DeckOfCardProgram
         /// <param name="flag"></param>
         public static void ErrorMessage(bool flag)
         {
-            if (!flag)
-                Console.WriteLine("Please Input the Number !!!");
+            try
+            {
+                if (!flag)
+                    Console.WriteLine("Please Input the Number !!!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
         }
 
 
         public static void SortDeckOfCards()
         {
-            for (int i=init;i<end;i++)
+            try
             {
-                for(int j=init;j<end;j++)
+                for (int i = init; i < end; i++)
                 {
-                    int result = checkCards[i].CompareTo(checkCards[j]);
-
-                    if(result < 0)
+                    for (int j = init; j < end; j++)
                     {
-                        string temp = checkCards[i];
-                        checkCards[i] = checkCards[j];
-                        checkCards[j] = temp;
-                    }
+                        int result = checkCards[i].CompareTo(checkCards[j]);
 
+                        if (result < 0)
+                        {
+                            string temp = checkCards[i];
+                            checkCards[i] = checkCards[j];
+                            checkCards[j] = temp;
+                        }
+
+                    }
                 }
             }
-
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
         }
 
 
         public static QueueLinkedList DeckOfCard(string[] suits, string[] rank)
         {
-            QueueLinkedList queueLinkedList = new QueueLinkedList();
-
-            Random random = new Random();
-            
-            for (int j = 0; j < 9; j++)
+            try
             {
-                bool flag;
-                do
+                QueueLinkedList queueLinkedList = new QueueLinkedList();
+
+                Random random = new Random();
+
+                for (int j = 0; j < 9; j++)
                 {
-                    bool inputFlag = false;
-                    flag = false;
-                    int suitsRandom = random.Next(0, 4);
-                    char initial = suits[suitsRandom].ToCharArray()[0];
-
-                    int rankRandom = random.Next(0, 13);
-                    string cardsForm = rank[rankRandom] + initial;
-
-                    if (end == 0)
+                    bool flag;
+                    do
                     {
-                        checkCards[end] = cardsForm;
-                        end++;
-                        flag = true;
-                    }
-                    else
-                    {
-                        for (int k = 0; k < end; k++)
-                        {
-                            if (checkCards[k] == cardsForm)
-                            {
-                                flag = false;
-                                inputFlag = true;
-                                break;
-                            }
-                        }
-                        if (!inputFlag)
+                        bool inputFlag = false;
+                        flag = false;
+                        int suitsRandom = random.Next(0, 4);
+                        char initial = suits[suitsRandom].ToCharArray()[0];
+
+                        int rankRandom = random.Next(0, 13);
+                        string cardsForm = rank[rankRandom] + initial;
+
+                        if (end == 0)
                         {
                             checkCards[end] = cardsForm;
                             end++;
                             flag = true;
                         }
-                    }
-                } while (!flag);
+                        else
+                        {
+                            for (int k = 0; k < end; k++)
+                            {
+                                if (checkCards[k] == cardsForm)
+                                {
+                                    flag = false;
+                                    inputFlag = true;
+                                    break;
+                                }
+                            }
+                            if (!inputFlag)
+                            {
+                                checkCards[end] = cardsForm;
+                                end++;
+                                flag = true;
+                            }
+                        }
+                    } while (!flag);
+                }
+                SortDeckOfCards();
+
+                for (int i = init; i < end; i++)
+                    queueLinkedList.Enqueue(checkCards[i]);
+
+                init = end;
+
+                return queueLinkedList;
             }
-            SortDeckOfCards();
-
-            for (int i = init; i < end; i++)
-                queueLinkedList.Enqueue(checkCards[i]);
-
-            init = end;
-
-            return queueLinkedList;
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return null;
+            }
         }
 
     }

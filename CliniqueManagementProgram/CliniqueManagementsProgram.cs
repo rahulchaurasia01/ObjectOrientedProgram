@@ -103,11 +103,7 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram
 
                     }
 
-
                 } while (!flag);
-
-
-
 
             }
             catch(Exception e)
@@ -115,9 +111,6 @@ namespace ObjectOrientedProgram.CliniqueManagementProgram
                 Console.WriteLine("Message: {0}", e.Message);
             }
 
-
-
         }
-
     }
 }

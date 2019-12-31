@@ -8,8 +8,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ObjectOrientedProgram
 {
@@ -22,8 +20,15 @@ namespace ObjectOrientedProgram
         /// <param name="flag"></param>
         public static void ErrorMessage(bool flag)
         {
-            if (!flag)
-                Console.WriteLine("Please Input the Number !!!");
+            try
+            {
+                if (!flag)
+                    Console.WriteLine("Please Input the Number !!!");
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
         }
 
     }

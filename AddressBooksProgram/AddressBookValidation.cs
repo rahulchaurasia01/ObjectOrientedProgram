@@ -15,8 +15,17 @@ namespace ObjectOrientedProgram.AddressBooksProgram
         /// <returns></returns>
         public static bool NameValidation(string name)
         {
-            string pattern = @"^[a-zA-Z\s]*$";
-            return Regex.IsMatch(name, pattern);
+            try
+            {
+                string pattern = @"^[a-zA-Z\s]*$";
+                return Regex.IsMatch(name, pattern);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -26,8 +35,17 @@ namespace ObjectOrientedProgram.AddressBooksProgram
         /// <returns></returns>
         public static bool AddressValidation(string address)
         {
-            string pattern = @"^[a-zA-Z0-9\,\-\.\s]*$";
-            return Regex.IsMatch(address, pattern);
+            try
+            {
+                string pattern = @"^[a-zA-Z0-9\,\-\.\s]*$";
+                return Regex.IsMatch(address, pattern);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -37,9 +55,18 @@ namespace ObjectOrientedProgram.AddressBooksProgram
         /// <returns></returns>
         public static bool EmailValidation(string email)
         {
-            string pattern = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+            try
+            {
+                string pattern = @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
                 @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
-            return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
+                return Regex.IsMatch(email, pattern, RegexOptions.IgnoreCase);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -49,8 +76,17 @@ namespace ObjectOrientedProgram.AddressBooksProgram
         /// <returns></returns>
         public static bool MobileNumberValidation(string mobileNumber)
         {
-            string pattern = @"^((\+)?(\d{2}[-])?(\d{10}){1})?(\d{11}){0,1}?$";
-            return Regex.IsMatch(mobileNumber, pattern);
+            try
+            {
+                string pattern = @"^((\+)?(\d{2}[-])?(\d{10}){1})?(\d{11}){0,1}?$";
+                return Regex.IsMatch(mobileNumber, pattern);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return false;
+            }
+            
         }
 
         /// <summary>
@@ -60,8 +96,17 @@ namespace ObjectOrientedProgram.AddressBooksProgram
         /// <returns></returns>
         public static bool ZipValidation(string zip)
         {
-            string pattern = @"^[1-9][0-9]{5}$";
-            return Regex.IsMatch(zip, pattern);
+            try
+            {
+                string pattern = @"^[1-9][0-9]{5}$";
+                return Regex.IsMatch(zip, pattern);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return false;
+            }
+            
         }
 
 

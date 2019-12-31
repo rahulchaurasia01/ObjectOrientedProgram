@@ -30,20 +30,28 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <returns>List of Customer created.</returns>
         public static List<Customer> ReadCustomerData()
         {
-            string filename = StockReportProgram.customerLoginPath;
+            try
+            {
+                string filename = StockReportProgram.customerLoginPath;
 
-            string customerInfoData = File.ReadAllText(filename);
+                string customerInfoData = File.ReadAllText(filename);
 
-            var customerInfoObject = JsonConvert.DeserializeObject<CustomerList>(customerInfoData);
+                var customerInfoObject = JsonConvert.DeserializeObject<CustomerList>(customerInfoData);
 
-            List<Customer> customers;
-            
-            if (customerInfoObject == null)
-                customers = new List<Customer>();
-            else
-                customers = customerInfoObject.Customers;
+                List<Customer> customers;
 
-            return customers;
+                if (customerInfoObject == null)
+                    customers = new List<Customer>();
+                else
+                    customers = customerInfoObject.Customers;
+
+                return customers;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -54,16 +62,24 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <returns></returns>
         public static bool IsUserPresent(List<Customer> customers, string userName)
         {
-            foreach (Customer cust in customers)
+            try
             {
-                if (cust.UserName.Equals(userName))
+                foreach (Customer cust in customers)
                 {
-                    UserName = cust.UserName;
-                    return true;
+                    if (cust.UserName.Equals(userName))
+                    {
+                        UserName = cust.UserName;
+                        return true;
+                    }
+
                 }
-                    
+                return false;
             }
-            return false;
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -72,19 +88,27 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <returns>List of all Customer Purchased Share</returns>
         public static List<CustomerPurchased> ReadCustomerPurchasedLists()
         {
-            string filename = StockReportProgram.customerPurchasedSharePath;
-            string customerPurchasedData = File.ReadAllText(filename);
+            try
+            {
+                string filename = StockReportProgram.customerPurchasedSharePath;
+                string customerPurchasedData = File.ReadAllText(filename);
 
-            var customerPurchasedObject = JsonConvert.DeserializeObject<CustomerPurchasedList>(customerPurchasedData);
+                var customerPurchasedObject = JsonConvert.DeserializeObject<CustomerPurchasedList>(customerPurchasedData);
 
-            List<CustomerPurchased> customerPurchaseds;
+                List<CustomerPurchased> customerPurchaseds;
 
-            if (customerPurchasedObject == null)
-                customerPurchaseds = new List<CustomerPurchased>();
-            else
-                customerPurchaseds = customerPurchasedObject.CustomerPurchaseds;
+                if (customerPurchasedObject == null)
+                    customerPurchaseds = new List<CustomerPurchased>();
+                else
+                    customerPurchaseds = customerPurchasedObject.CustomerPurchaseds;
 
-            return customerPurchaseds;
+                return customerPurchaseds;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return null;
+            }
         }
 
         /// <summary>
@@ -93,22 +117,29 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <param name="stockPortfolios">List of stocks Available</param>
         public static void DisplayStocks(List<StockPortfolio> stockPortfolios)
         {
-            if(stockPortfolios.Count == 0)
-                Console.WriteLine("Currently No Stocks Present.");
-            else
+            try
             {
-                int count = 1;
-                var table = new ConsoleTable("No.","Share Name","No. Of Share","Share Price");
-                foreach (StockPortfolio stock in stockPortfolios)
+                if (stockPortfolios.Count == 0)
+                    Console.WriteLine("Currently No Stocks Present.");
+                else
                 {
-                    table.AddRow(count, stock.ShareName, stock.NoOfShare, "Rs." + stock.SharePrice);
-                    count++;
-                }
-               
-                table.AddRow(count + ". Exit", null,null,null);
-                table.Options.EnableCount = false; 
-                table.Write();
+                    int count = 1;
+                    var table = new ConsoleTable("No.", "Share Name", "No. Of Share", "Share Price");
+                    foreach (StockPortfolio stock in stockPortfolios)
+                    {
+                        table.AddRow(count, stock.ShareName, stock.NoOfShare, "Rs." + stock.SharePrice);
+                        count++;
+                    }
 
+                    table.AddRow(count + ". Exit", null, null, null);
+                    table.Options.EnableCount = false;
+                    table.Write();
+
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
             }
         }
 
@@ -118,25 +149,32 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <param name="customerPurchaseds"></param>
         public static void DisplayPurchasedShares(List<CustomerPurchased> customerPurchaseds)
         {
-            double totalShare = 0.0, totalAmount = 0.0;
-
-            int count = 1;
-            var table = new ConsoleTable("No.", "Share Name","No. Of Share","Amount");
-
-            foreach (CustomerPurchased customerPurchased in customerPurchaseds)
+            try
             {
-                table.AddRow(count, customerPurchased.ShareName, customerPurchased.NoOfShare,"Rs." + customerPurchased.Amount);
-                totalShare += Convert.ToDouble(customerPurchased.NoOfShare);
-                totalAmount += Convert.ToDouble(customerPurchased.Amount);
-                count++;
+                double totalShare = 0.0, totalAmount = 0.0;
+
+                int count = 1;
+                var table = new ConsoleTable("No.", "Share Name", "No. Of Share", "Amount");
+
+                foreach (CustomerPurchased customerPurchased in customerPurchaseds)
+                {
+                    table.AddRow(count, customerPurchased.ShareName, customerPurchased.NoOfShare, "Rs." + customerPurchased.Amount);
+                    totalShare += Convert.ToDouble(customerPurchased.NoOfShare);
+                    totalAmount += Convert.ToDouble(customerPurchased.Amount);
+                    count++;
+                }
+
+                table.Options.EnableCount = false;
+
+                table.AddRow(null, null, "----------", "----------");
+                table.AddRow("Total:", null, totalShare, "Rs." + totalAmount);
+
+                table.Write();
             }
-
-            table.Options.EnableCount = false;
-            
-            table.AddRow(null, null, "----------", "----------");
-            table.AddRow("Total:", null, totalShare, "Rs." +totalAmount);
-
-            table.Write();
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
 
         }
         
@@ -147,44 +185,52 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <returns></returns>
         public static List<CustomerPurchased> AllCustomerPurchasedShare(List<CustomerPurchased> customerPurchaseds)
         {
-            List<CustomerPurchased> customerPurchaseds1 = new List<CustomerPurchased>();
-            List<CustomerPurchased> customerPurchaseds2;
-            CustomerPurchased customerPurchased1;
-            int n = StockAccount.ListOfCompanyShares().Count;
-            string shareName = "";
-            double specificShare = 0.0, amount = 0.0;
+            try
+            {
+                List<CustomerPurchased> customerPurchaseds1 = new List<CustomerPurchased>();
+                List<CustomerPurchased> customerPurchaseds2;
+                CustomerPurchased customerPurchased1;
+                int n = StockAccount.ListOfCompanyShares().Count;
+                string shareName = "";
+                double specificShare = 0.0, amount = 0.0;
 
-            if (customerPurchaseds.Count == 0)
-            {
-                return null;
-            }
-            else
-            {
-                for (int i = 0; i < n; i++)
+                if (customerPurchaseds.Count == 0)
                 {
-                    shareName = StockAccount.ListOfCompanyShares()[i].ShareName;
-                    customerPurchaseds2 = customerPurchaseds.FindAll(x => x.ShareName.Equals(shareName));
-                    if (customerPurchaseds2.Count != 0)
-                    {
-                        foreach (CustomerPurchased customerPurchased in customerPurchaseds2)
-                        {
-                            specificShare += Convert.ToDouble(customerPurchased.NoOfShare);
-                            amount += Convert.ToDouble(customerPurchased.Amount);
-
-                        }
-                        customerPurchased1 = new CustomerPurchased
-                        {
-                            ShareName = shareName,
-                            NoOfShare = specificShare.ToString(),
-                            Amount = amount.ToString()
-                        };
-                        customerPurchaseds1.Add(customerPurchased1);
-                        specificShare = 0.0;
-                        amount = 0.0;
-                    }
-
+                    return null;
                 }
-                return customerPurchaseds1;
+                else
+                {
+                    for (int i = 0; i < n; i++)
+                    {
+                        shareName = StockAccount.ListOfCompanyShares()[i].ShareName;
+                        customerPurchaseds2 = customerPurchaseds.FindAll(x => x.ShareName.Equals(shareName));
+                        if (customerPurchaseds2.Count != 0)
+                        {
+                            foreach (CustomerPurchased customerPurchased in customerPurchaseds2)
+                            {
+                                specificShare += Convert.ToDouble(customerPurchased.NoOfShare);
+                                amount += Convert.ToDouble(customerPurchased.Amount);
+
+                            }
+                            customerPurchased1 = new CustomerPurchased
+                            {
+                                ShareName = shareName,
+                                NoOfShare = specificShare.ToString(),
+                                Amount = amount.ToString()
+                            };
+                            customerPurchaseds1.Add(customerPurchased1);
+                            specificShare = 0.0;
+                            amount = 0.0;
+                        }
+
+                    }
+                    return customerPurchaseds1;
+                }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return null;
             }
         }
 
@@ -194,14 +240,21 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <param name="customerList">List Of Customers</param>
         public static void AddCustomerToJson(CustomerList customerList)
         {
-            string filename = StockReportProgram.customerLoginPath;
+            try
+            {
+                string filename = StockReportProgram.customerLoginPath;
 
-            string customerData = JsonConvert.SerializeObject(customerList);
+                string customerData = JsonConvert.SerializeObject(customerList);
 
-            using (StreamWriter streamWriter = new StreamWriter(filename))
-                streamWriter.WriteLine(customerData);
+                using (StreamWriter streamWriter = new StreamWriter(filename))
+                    streamWriter.WriteLine(customerData);
 
-            Console.WriteLine("Your Account Has Been Successfully Created.");
+                Console.WriteLine("Your Account Has Been Successfully Created.");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
         }
 
         /// <summary>
@@ -210,14 +263,21 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <param name="customerPurchasedList"></param>
         public static void AddCustomerPurchasedShareToJson(CustomerPurchasedList customerPurchasedList)
         {
-            string filename = StockReportProgram.customerPurchasedSharePath;
-            
-            string customerPurchasedData = JsonConvert.SerializeObject(customerPurchasedList);
+            try
+            {
+                string filename = StockReportProgram.customerPurchasedSharePath;
 
-            using (StreamWriter streamWriter = new StreamWriter(filename))
-                streamWriter.WriteLine(customerPurchasedData);
+                string customerPurchasedData = JsonConvert.SerializeObject(customerPurchasedList);
 
-            Console.WriteLine("Your Have Successfully Brought this Share.");
+                using (StreamWriter streamWriter = new StreamWriter(filename))
+                    streamWriter.WriteLine(customerPurchasedData);
+
+                Console.WriteLine("Your Have Successfully Brought this Share.");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
 
         }
 
@@ -227,14 +287,21 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <param name="customerSoldList">Customer sold Share Data.</param>
         public static void AddCustomerSoldShareToJson(CustomerSoldList customerSoldList)
         {
-            string filename = StockReportProgram.customerSoldSharePath;
+            try
+            {
+                string filename = StockReportProgram.customerSoldSharePath;
 
-            string customerSoldData = JsonConvert.SerializeObject(customerSoldList);
+                string customerSoldData = JsonConvert.SerializeObject(customerSoldList);
 
-            using (StreamWriter streamWriter = new StreamWriter(filename))
-                streamWriter.WriteLine(customerSoldData);
+                using (StreamWriter streamWriter = new StreamWriter(filename))
+                    streamWriter.WriteLine(customerSoldData);
 
-            Console.WriteLine("Your Have Successfully Sold this Share.");
+                Console.WriteLine("Your Have Successfully Sold this Share.");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
 
         }
 
@@ -244,13 +311,19 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <param name="stock"></param>
         public static void UpdateStockDataToJson(Stock stock)
         {
-            string filename = StockReportProgram.StockDataPath;
+            try
+            {
+                string filename = StockReportProgram.StockDataPath;
 
-            string updateStockData = JsonConvert.SerializeObject(stock);
+                string updateStockData = JsonConvert.SerializeObject(stock);
 
-            using StreamWriter streamWriter = new StreamWriter(filename);
-            streamWriter.WriteLine(updateStockData);
-
+                using StreamWriter streamWriter = new StreamWriter(filename);
+                streamWriter.WriteLine(updateStockData);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
         }
 
         /// <summary>
@@ -260,21 +333,29 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <returns></returns>
         public static List<StockPortfolio> ReadStockData(StockPortfolio stockPortfolio)
         {
-            List<StockPortfolio> stockPortfolios = StockAccount.ListOfCompanyShares();
-
-            if(stockPortfolios != null)
+            try
             {
-                foreach(StockPortfolio stockPortfolio1 in stockPortfolios)
+                List<StockPortfolio> stockPortfolios = StockAccount.ListOfCompanyShares();
+
+                if (stockPortfolios != null)
                 {
-                    if (stockPortfolio1.ShareName.Equals(stockPortfolio.ShareName))
+                    foreach (StockPortfolio stockPortfolio1 in stockPortfolios)
                     {
-                        stockPortfolio1.NoOfShare = stockPortfolio.NoOfShare;
-                        return stockPortfolios;
+                        if (stockPortfolio1.ShareName.Equals(stockPortfolio.ShareName))
+                        {
+                            stockPortfolio1.NoOfShare = stockPortfolio.NoOfShare;
+                            return stockPortfolios;
+                        }
                     }
                 }
-            }
 
-            return null;
+                return null;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return null;
+            }
 
         }
 
@@ -285,56 +366,73 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <returns></returns>
         public static StockPortfolio SingleStockData(string symbol)
         {
-            List<StockPortfolio> stockPortfolios = StockAccount.ListOfCompanyShares();
-
-            if(stockPortfolios.Count != 0)
+            try
             {
-                foreach (StockPortfolio stockPortfolio in stockPortfolios)
-                {
-                    if (stockPortfolio.ShareName.Equals(symbol))
-                        return stockPortfolio;
-                }
-            }
+                List<StockPortfolio> stockPortfolios = StockAccount.ListOfCompanyShares();
 
-            return null;
+                if (stockPortfolios.Count != 0)
+                {
+                    foreach (StockPortfolio stockPortfolio in stockPortfolios)
+                    {
+                        if (stockPortfolio.ShareName.Equals(symbol))
+                            return stockPortfolio;
+                    }
+                }
+
+                return null;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return null;
+            }
 
         }
 
+        /// <summary>
+        /// It Displat the Customer Transaction
+        /// </summary>
         public static void DisplayTransaction()
         {
-            List<CustomerPurchased> customerPurchaseds = ReadCustomerPurchasedLists();
-            customerPurchaseds = customerPurchaseds.FindAll(x => x.UserName.Equals(UserName));
-
-            QueueLinkedList queueLinkedList = new QueueLinkedList();
-
-            bool inputFlag;
-            int choice;
-
-            DisplayPurchasedShares(customerPurchaseds);
-
-            do
+            try
             {
-                Console.WriteLine();
-                Console.Write("Which Share Transaction you want to view: ");
-                inputFlag = int.TryParse(Console.ReadLine(), out choice);
-                ErrorMessage(inputFlag);
-                if (!inputFlag)
-                    DisplayPurchasedShares(customerPurchaseds);
-                if (choice <= 0 || choice > customerPurchaseds.Count)
+                List<CustomerPurchased> customerPurchaseds = ReadCustomerPurchasedLists();
+                customerPurchaseds = customerPurchaseds.FindAll(x => x.UserName.Equals(UserName));
+
+                QueueLinkedList queueLinkedList = new QueueLinkedList();
+
+                bool inputFlag;
+                int choice;
+
+                DisplayPurchasedShares(customerPurchaseds);
+
+                do
                 {
-                    Console.WriteLine("Invalid Choice !!!");
-                    DisplayPurchasedShares(customerPurchaseds);
                     Console.WriteLine();
-                    inputFlag = false;
-                }
+                    Console.Write("Which Share Transaction you want to view: ");
+                    inputFlag = int.TryParse(Console.ReadLine(), out choice);
+                    ErrorMessage(inputFlag);
+                    if (!inputFlag)
+                        DisplayPurchasedShares(customerPurchaseds);
+                    if (choice <= 0 || choice > customerPurchaseds.Count)
+                    {
+                        Console.WriteLine("Invalid Choice !!!");
+                        DisplayPurchasedShares(customerPurchaseds);
+                        Console.WriteLine();
+                        inputFlag = false;
+                    }
 
-            } while (!inputFlag);
+                } while (!inputFlag);
 
-            foreach (CustomerPurchased customerPurchased in customerPurchaseds)
-                queueLinkedList.Enqueue(customerPurchased.DateAndTime);
+                foreach (CustomerPurchased customerPurchased in customerPurchaseds)
+                    queueLinkedList.Enqueue(customerPurchased.DateAndTime);
 
-            Console.WriteLine("The Transaction Date is: {0}", queueLinkedList.Search(choice));
-
+                Console.WriteLine("The Transaction Date is: {0}", queueLinkedList.Search(choice));
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
         }
 
         /// <summary>
@@ -344,8 +442,16 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <returns></returns>
         public static bool NameValidation(string userName)
         {
-            string pattern = @"^[a-zA-Z0-9]{3,15}$";
-            return Regex.IsMatch(userName, pattern);
+            try
+            {
+                string pattern = @"^[a-zA-Z0-9]{3,15}$";
+                return Regex.IsMatch(userName, pattern);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+                return false;
+            }
         }
 
         /// <summary>
@@ -355,8 +461,15 @@ namespace ObjectOrientedProgram.CommercialDataProcessingProgram
         /// <param name="flag"></param>
         public static void ErrorMessage(bool flag)
         {
-            if (!flag)
-                Console.WriteLine("Please Input the Number !!!");
+            try
+            {
+                if (!flag)
+                    Console.WriteLine("Please Input the Number !!!");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine("Message: {0}", e.Message);
+            }
         }
 
     }
